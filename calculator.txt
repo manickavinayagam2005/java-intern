@@ -1,0 +1,78 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+class Calculator {
+    public static double add(double a, double b) {
+        return a + b;
+    }
+
+    public static double subtract(double a, double b) {
+        return a - b;
+    }
+
+    public static double multiply(double a, double b) {
+        return a * b;
+    }
+
+    public static double divide(double a, double b) {
+        if (b == 0) {
+            throw new ArithmeticException("Division by zero is not allowed!");
+        }
+        return a / b;
+    }
+}
+
+public class ConsoleCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice = 0;
+
+        while (choice != 5) {
+            try {
+                System.out.println("\nChoose operation:");
+                System.out.println("1. Add");
+                System.out.println("2. Subtract");
+                System.out.println("3. Multiply");
+                System.out.println("4. Divide");
+                System.out.println("5. Exit");
+                System.out.print("Enter choice: ");
+                choice = scanner.nextInt();
+
+                if (choice >= 1 && choice <= 4) {
+                    System.out.print("Enter first number: ");
+                    double num1 = scanner.nextDouble();
+                    System.out.print("Enter second number: ");
+                    double num2 = scanner.nextDouble();
+
+                    double result = 0;
+switch (choice) {
+    case 1:
+        result = Calculator.add(num1, num2);
+        break;
+    case 2:
+        result = Calculator.subtract(num1, num2);
+        break;
+    case 3:
+        result = Calculator.multiply(num1, num2);
+        break;
+    case 4:
+        result = Calculator.divide(num1, num2);
+        break;
+}
+
+                    System.out.println("Result: " + result);
+                } else if (choice != 5) {
+                    System.out.println("Invalid choice! Please try again.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Please enter a number.");
+                scanner.nextLine(); // clear buffer
+            } catch (ArithmeticException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+
+        System.out.println("Calculator closed.");
+        scanner.close();
+    }
+}
